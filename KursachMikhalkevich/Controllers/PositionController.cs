@@ -103,7 +103,8 @@ namespace KursachMikhalkevich.Controllers
                     AuthorizedUser.SetUser(worker);
                 }
                 return RedirectToAction("List");
-            }            
+            }
+            position.Workers = _context.Workers.Where(t => t.PositionId == position.Id).ToList();
             return View(position);
         }
 
