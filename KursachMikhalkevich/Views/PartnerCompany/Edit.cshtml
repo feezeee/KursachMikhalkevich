@@ -1,0 +1,29 @@
+﻿@model Qualification
+@{
+    Layout = "_Layout";
+}
+
+
+<div class="divForForm">
+    <div class="myForm">
+        <form asp-action="List" asp-controller="Qualification">
+            <button type="submit" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </form>
+
+        <form method="post" asp-controller="Qualification" asp-action="Create">
+   
+                <div class="form-group">
+                    <input hidden asp-for="Id" type="text" value="@Model?.Id" />
+                    <label for="Name">Название*</label>
+                    <input asp-for="Name" required type="text" class="form-control" id="Name" placeholder="Название" value="@Model?.Name">
+                    @Html.ValidationMessageFor(model => model.Name, null, new { style = "color:red" })
+                </div>
+   
+
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+
+    </div>
+</div>

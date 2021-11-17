@@ -15,6 +15,6 @@ namespace KursachMikhalkevich.Models
         [Column("company_name")]
         public string Name { get; set; }
 
-        //public virtual List<Worker> Workers { get; set; } = new List<Worker>();
+        public virtual List<Practice> Practices { get; set; } = new List<Practice>();
     }
 }
