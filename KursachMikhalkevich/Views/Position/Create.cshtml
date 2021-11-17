@@ -13,13 +13,11 @@
         </form>
         
         <form method="post" asp-controller="Position" asp-action="Create">
-            <div class="form-row">
                 <div class="form-group">
                     <label for="Name">Название*</label>
                     <input asp-for="Name" required type="text" class="form-control" id="Name" placeholder="Название" value="@Model?.Name">
                     @Html.ValidationMessageFor(model => model.Name, null, new { style = "color:red" })
                 </div>
-            </div>
             
             <button type="submit" class="btn btn-primary">Добавить должность</button>
         </form>
