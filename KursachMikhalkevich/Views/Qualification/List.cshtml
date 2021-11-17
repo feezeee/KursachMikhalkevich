@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Qualification>
+@{
+    Layout = "_Layout";
+}
+<a class="addWorker" asp-action="Create" asp-controller="Qualification">
+    <img src="~/img/plus.png" width="60" height="60" />
+</a>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th class="text-center">Индентификатор</th>
+                <th class="text-center">Наименование</th>
+                <th class="text-center">Количество сотрудников</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var qualification in Model)
+            {
+                <tr>
+                    <th>
+                        <a asp-controller="Qualification" asp-action="Edit" asp-route-id="@qualification.Id" style="float:left;">Редактирование</a>
+                        @if(qualification.Workers?.Count == 0)
+                        {
+                            <span style="float:left;">|</span>
+                            <a asp-controller="Qualification" asp-action="Delete" asp-route-id="@qualification.Id" style="float:left;">Удалить</a>
+                        }
+                    </th>
+                    <th class="text-center">@qualification.Id</th>
+                    <td class="text-center">@qualification.Name</td>
+                    <td class="text-center">@qualification.Workers?.Count</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
