@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -24,13 +25,23 @@ namespace KursachMikhalkevich.Models
         [Column("password")]
         public string Password { get; set; }
 
+        [Column("email")]
+        [Remote(action: "CheckEmail", controller: "Worker", AdditionalFields = "ClassId", ErrorMessage = "В это врямя занятие уже проводится", HttpMethod = "POST")]
+        public string Email { get; set; }
+
+
+
         [Column("position_id")]
         public int PositionId { get; set; }
         public Position Position { get; set; }
 
+
+
         [Column("access_right_id")]
         public int AccessRightId { get; set; }
         public AccessRight AccessRight { get; set; }
+
+
 
         [Column("qualification_id")]
         public int QualificationId { get; set; }

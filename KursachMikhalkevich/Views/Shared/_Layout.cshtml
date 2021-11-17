@@ -6,37 +6,50 @@
     <title>@ViewData["Title"] - KursachMikhalkevich</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    
+    <link rel="stylesheet" href="~/css/cdmenu.css"/>
+    
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Учебный отдел</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <header class="modal-header">
+        Добро пожаловать @AuthorizedUser.GetUser()?.FIO()
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <section class="cd-section">
+        <button class="cd-bouncy-nav-trigger" href="#0">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </section>
+    <div class="cd-bouncy-nav-modal">
+        <nav>
+            <ul class="cd-bouncy-nav">
+                <li><a href="#home">Работники</a></li>
+                <li><a href="#about">Должности</a></li>
+                <li><a href="#services">Права доступа</a></li>
+                <li><a href="#gallery">Квалификации</a></li>
+                <li><a href="#team">Предметы</a></li>
+                <li><a href="#contact">Группы</a></li>
+                <li><a href="#contact">Студенты</a></li>
+                <li><a href="#contact">Практики</a></li>
+                <li><a href="#contact">Компании партнеры</a></li>
+            </ul>
+        </nav>
+        <a href="#0" class="cd-close">Close modal</a>
     </div>
+    <main class="myPlace">
+            @RenderBody()        
+    </main>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+
+
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/cdmenu.js"></script>
 </body>
 </html>

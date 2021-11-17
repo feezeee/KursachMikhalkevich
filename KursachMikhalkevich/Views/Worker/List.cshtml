@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Worker>
+@{ 
+    Layout = "_Layout";
+}
+<a class="addWorker" asp-action="Create" asp-controller="Worker">
+    <img src="~/img/plus.png" width="60" height="60"/>
+</a>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-center">Индентификатор</th>
+                <th class="text-center">ФИО</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(int i = 0; i <100; i++)
+            {
+                @foreach (var worker in Model)
+                {
+                    <tr>
+                        <th class="text-center">@worker.Id</th>
+                        <td class="text-center">@worker.FIO()</td>
+                    </tr>
+                }     
+            }
+        </tbody>
+    </table>
+</div>
