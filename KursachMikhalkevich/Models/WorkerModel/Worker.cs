@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,24 +12,29 @@ namespace KursachMikhalkevich.Models
     public class Worker
     {
         [Column("worker_id")]
+        
         public int Id { get; set; }
 
         [Column("worker_first_name")]
+        [Required]
         public  string FirstName { get; set; }
 
         [Column("worker_last_name")]
+        [Required]
         public string LastName { get; set; }
 
         [Column("worker_middle_name")]
+        [Required]
         public string MiddleName { get; set; }
 
         [Column("password")]
+        [Required]
         public string Password { get; set; }
 
         [Column("email")]
-        [Remote(action: "CheckEmail", controller: "Worker", AdditionalFields = "ClassId", ErrorMessage = "В это врямя занятие уже проводится", HttpMethod = "POST")]
+        [Required]
+        [Remote(action: "CheckEmail", controller: "Worker", AdditionalFields = "Id", ErrorMessage = "Данная почта указана для другого сотрудника", HttpMethod = "POST")]
         public string Email { get; set; }
-
 
 
         [Column("position_id")]

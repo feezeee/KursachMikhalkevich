@@ -31,7 +31,9 @@ namespace KursachMikhalkevich.Controllers
             ViewBag.Positions = new SelectList(_context.Positions, "Id", "Name");
             ViewBag.Qualifications = new SelectList(_context.Qualifications, "Id", "Name");
             ViewBag.AccessRights = new SelectList(_context.AccessRights, "Id", "Name");
-            return View();
+            Worker worker = new Worker();
+            worker.Password = "admin";
+            return View(worker);
         }
 
         [HttpPost]
@@ -77,78 +79,81 @@ namespace KursachMikhalkevich.Controllers
         }
 
 
-        //[HttpGet]
-        //public IActionResult Edit(int? id)
-        //{
-        //    if (id == 0)
-        //    {
-        //        return RedirectToAction("List");
-        //    }
-        //    Worker worker = _context.Workers.Include(t => t.Position).Include(t => t.Qualification).Include(t => t.AccessRight).Include(t => t.Lessons).Include(t => t.Classes).Where(t => t.Id == id).Select(t => t).FirstOrDefault();
-        //    if (worker != null)
-        //    {
-        //        ViewBag.Positions = new SelectList(_context.Positions, "Id", "Name");
-        //        ViewBag.Qualifications = new SelectList(_context.Qualifications, "Id", "Name");
-        //        ViewBag.AccessRights = new SelectList(_context.AccessRights, "Id", "Name");
-        //        return View(worker);
-        //    }
-        //    return RedirectToAction("List");
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (id == 0)
+            {
+                return RedirectToAction("List");
+            }
+            Worker worker = _context.Workers.Include(t => t.Position).Include(t => t.Qualification).Include(t => t.AccessRight).Include(t => t.Subjects).Where(t => t.Id == id).Select(t => t).FirstOrDefault();
+            if (worker != null)
+            {
+                ViewBag.Positions = new SelectList(_context.Positions, "Id", "Name");
+                ViewBag.Qualifications = new SelectList(_context.Qualifications, "Id", "Name");
+                ViewBag.AccessRights = new SelectList(_context.AccessRights, "Id", "Name");
+                return View(worker);
+            }
+            return RedirectToAction("List");
 
-        //}
+        }
 
 
-        //[HttpPost]
-        //public async Task<IActionResult> Edit(Worker worker)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (worker.Id == AuthorizedUser.GetInstance().GetWorker().Id)
-        //        {
-        //            worker.Position = _context.Positions.Find(worker.PositionId);
-        //            worker.AccessRight = _context.AccessRights.Find(worker.AccessRightId);
-        //            AuthorizedUser.GetInstance().ClearUser();
-        //            AuthorizedUser.GetInstance().SetUser(worker);
-        //        }
-        //        _context.Entry(worker).State = EntityState.Modified;
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction("List");
-        //    }
+        [HttpPost]
+        public async Task<IActionResult> Edit(Worker worker)
+        {
+            if (ModelState.IsValid)
+            {
+                if (worker.Id == AuthorizedUser.GetUser()?.Id)
+                {
+                    worker.Position = _context.Positions.Find(worker.PositionId);
+                    worker.AccessRight = _context.AccessRights.Find(worker.AccessRightId);
+                    worker.Qualification = _context.Qualifications.Find(worker.QualificationId);
+                    AuthorizedUser.SetUser(worker);
+                }
+                _context.Entry(worker).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return RedirectToAction("List");
+            }
 
-        //    ViewBag.Positions = new SelectList(_context.Positions, "Id", "Name");
-        //    ViewBag.Qualifications = new SelectList(_context.Qualifications, "Id", "Name");
-        //    ViewBag.AccessRights = new SelectList(_context.AccessRights, "Id", "Name");
-        //    worker.Lessons = _context.Subjects.Where(t => t.WorkerId == worker.Id).Select(t => t).ToList();
-        //    worker.Classes = _context.Classes.Where(t => t.ClassroomTeacherId == worker.Id).Select(t => t).ToList();
-        //    return View(worker);
-        //}
+            ViewBag.Positions = new SelectList(_context.Positions, "Id", "Name");
+            ViewBag.Qualifications = new SelectList(_context.Qualifications, "Id", "Name");
+            ViewBag.AccessRights = new SelectList(_context.AccessRights, "Id", "Name");
+            worker.Subjects = _context.Subjects.Where(t => t.WorkerId == worker.Id).Select(t => t).ToList();
+            return View(worker);
+        }
 
-        //[HttpGet]
-        //public IActionResult Delete(int? id)
-        //{
-        //    Worker worker = _context.Workers.Find(id);
-        //    if (worker == null)
-        //    {
-        //        //return HttpNotFound();
-        //    }
-        //    else if (worker?.Id == AuthorizedUser.GetInstance().GetWorker()?.Id)
-        //    {
-        //        return RedirectToRoute("default", new { controller = "Worker", action = "Edit", id = id });
-        //    }
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            Worker worker = _context.Workers.Find(id);
+            if (worker == null)
+            {
+                return RedirectToAction("List");
+            }
+            else if (worker?.Id == AuthorizedUser.GetUser()?.Id)
+            {
+                return RedirectToAction("List");
+            }
 
-        //    return View(worker);
-        //}
+            return View(worker);
+        }
 
-        //[HttpPost, ActionName("Delete")]
-        //public IActionResult DeleteConfirmed(int? id)
-        //{
-        //    Worker worker = _context.Workers.Find(id);
-        //    if (worker == null)
-        //    {
-        //        //return HttpNotFound();
-        //    }
-        //    _context.Workers.Remove(worker);
-        //    _context.SaveChanges();
-        //    return RedirectToAction("List");
-        //}
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int? id)
+        {
+            Worker worker = _context.Workers.Find(id);
+            if (worker == null)
+            {
+                return RedirectToAction("List");
+            }
+            else if (worker?.Id == AuthorizedUser.GetUser()?.Id)
+            {
+                return RedirectToAction("List");
+            }
+            _context.Workers.Remove(worker);
+            _context.SaveChanges();
+            return RedirectToAction("List");
+        }
     }
 }
