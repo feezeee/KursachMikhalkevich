@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Position>
+@{
+    Layout = "_Layout";
+}
+<a class="addWorker" asp-action="Create" asp-controller="Position">
+    <img src="~/img/plus.png" width="60" height="60" />
+</a>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th class="text-center">Индентификатор</th>
+                <th class="text-center">Наименование</th>
+                <th class="text-center">Количество сотрудников</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var position in Model)
+            {
+                <tr>
+                    <th>
+                        <a asp-controller="Position" asp-action="Edit" asp-route-id="@position.Id" style="float:left;">Редактирование</a>
+                        @if(position.Workers?.Count == 0)
+                        {
+                            <span style="float:left;">|</span>
+                            <a asp-controller="Position" asp-action="Delete" asp-route-id="@position.Id" style="float:left;">Удалить</a>
+                        }
+                    </th>
+                    <th class="text-center">@position.Id</th>
+                    <td class="text-center">@position.Name</td>
+                    <td class="text-center">@position.Workers?.Count</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

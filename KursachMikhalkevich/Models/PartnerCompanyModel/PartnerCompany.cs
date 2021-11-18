@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace KursachMikhalkevich.Models
         public int Id { get; set; }
 
         [Column("company_name")]
+        [Remote(action: "CheckName", controller: "PartnerCompany", AdditionalFields = "Id", ErrorMessage = "Данная компания уже существует", HttpMethod = "POST")]
         public string Name { get; set; }
 
         public virtual List<Practice> Practices { get; set; } = new List<Practice>();

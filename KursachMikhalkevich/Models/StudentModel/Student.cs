@@ -24,12 +24,21 @@ namespace KursachMikhalkevich.Models
 
 
         [Column("graduate_work")]
-        public string GraduateWork { get; set; }
+        public string? GraduateWork { get; set; }
 
 
 
         [Column("practic_id")]
         public int? PracticeId { get; set; }
         public Practice Practice { get; set; }
+
+        [Column("group_id")]
+        public int GroupId { get; set; }
+        public Group Group { get; set; }
+
+
+        [Column("head_graduate_work_worker_id")]
+        public int? WorkerId { get; set; }
+        public Worker Worker { get; set; }
     }
 }

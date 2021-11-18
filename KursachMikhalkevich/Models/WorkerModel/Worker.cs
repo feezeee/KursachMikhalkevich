@@ -54,6 +54,7 @@ namespace KursachMikhalkevich.Models
         public Qualification Qualification { get; set; }
 
         public virtual List<Subject> Subjects { get; set; } = new List<Subject>();
+        public virtual List<Student> Students { get; set; } = new List<Student>();
 
     }
 }

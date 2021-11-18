@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Group>
+@{
+    Layout = "_Layout";
+}
+<a class="addWorker" asp-action="Create" asp-controller="Group">
+    <img src="~/img/plus.png" width="60" height="60" />
+</a>
+<div class="myGroup container">
+            
+    @foreach (var group in Model)
+    {
+            
+        <div>
+            <a asp-controller="Group" asp-action="Edit" asp-route-id="@group.Id" style="float:left;">Редактирование</a>
+            @if (group.Students?.Count == 0)
+            {
+                <span style="float:left;">|</span>
+                <a asp-controller="Group" asp-action="Delete" asp-route-id="@group.Id" style="float:left;">Удалить</a>
+            }
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a asp-controller="Group" asp-action="Information">@group.Name (@group.Students?.Count)</a>
+        </div>
+    }
+    
+</div>

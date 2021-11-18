@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Student>
+@{ 
+    Layout = "_Layout";
+}
+<a class="addWorker" asp-action="Create" asp-controller="Student">
+    <img src="~/img/plus.png" width="60" height="60"/>
+</a>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th class="text-center">Индентификатор</th>
+                <th class="text-center">ФИО</th>
+                <th class="text-center">Группа</th>
+                <th class="text-center">Практика</th>
+                <th class="text-center">Тема дипломной работы</th>
+                <th class="text-center">Руководитель дипломной работы</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model)
+            {
+            <tr>
+                <th>
+                    <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id" style="float:left;">Редактирование</a>
+                    <span style="float:left;">|</span>
+                    <a asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id" style="float:left;">Удалить</a>
+                </th>
+                <th class="text-center">@student.Id</th>
+                <td class="text-center">@student.FIO()</td>
+                <td class="text-center">@student.Group?.Name</td>
+                <td class="text-center">@student.Practice?.Name</td>
+                <td class="text-center">@student.GraduateWork</td>
+                <td class="text-center">@student.Worker?.FIO()</td>
+            </tr>   
+            }    
+        </tbody>
+    </table>
+</div>

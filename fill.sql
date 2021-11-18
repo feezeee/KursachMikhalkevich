@@ -20,42 +20,20 @@ insert into workers (worker_last_name, worker_first_name, worker_middle_name, em
 
 
 insert into subjects (subject_name, worker_id) values
-("Математика", 2),
-("Физика", 2),
-("Химия", 2);
+("Математика", 1),
+("Физика", 1),
+("Химия", 1);
 
-insert into classes_char (char_name) values
-("А"),
-("Б"),
-("В"),
-("Г"),
-("Д"),
-("Е"),
-("Ж"),
-("З"),
-("И");
 
-insert into classes_type (type_number) values
-(1),
-(2),
-(3),
-(4),
-(5),
-(6),
-(7),
-(8),
-(9),
-(10),
-(11);
+insert into study_department.groups (group_name) values
+("913801");
 
-insert into classes (class_type_id, classroom_teacher_worker_id, class_char_id ) values
-(1, 1, 2),
-(10, 1, 2),
-(2, 1, 2);
+insert into partner_companies (company_name) values
+("тест");
 
-insert into students (last_name, first_name, middle_name, class_id) values
-("Иванов", "Иван", "Иванович", 1),
-("Александров", "Александр", "Александрович", 2);
+
+insert into students (student_last_name, student_first_name, student_middle_name, group_id, practic_id) values
+("Иванов", "Иван", "Иванович", 1, 1);
 
 
 insert into schedules (date, class_id, subject_id) values

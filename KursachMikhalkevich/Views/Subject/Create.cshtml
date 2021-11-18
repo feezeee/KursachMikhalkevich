@@ -1,0 +1,33 @@
+﻿@model Subject
+@{
+    Layout = "_Layout";
+}
+
+
+<div class="divForForm">    
+    <div class="myForm">
+        <form asp-action="List" asp-controller="Subject">
+            <button type="submit" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </form>
+
+        <form method="post" asp-controller="Subject" asp-action="Create">
+
+            <div class="form-group">
+                <label for="Name">Название*</label>
+                <input asp-for="Name" required type="text" class="form-control" id="Name" placeholder="Название" value="@Model?.Name">
+                @Html.ValidationMessageFor(model => model.Name, null, new { style = "color:red" })
+            </div>
+            <div class="form-group">
+                <label for="accessRights">Преподаватель*</label>
+                <select id="accessRights" required class="form-control" asp-for="WorkerId" asp-items="ViewBag.Workers"></select>
+                @Html.ValidationMessageFor(model => model.WorkerId, null, new { style = "color:red" })
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">Добавить предмет</button>
+        </form>
+
+    </div>
+</div>

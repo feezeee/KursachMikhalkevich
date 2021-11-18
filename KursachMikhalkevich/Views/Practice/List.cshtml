@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Practice>
+@{
+    Layout = "_Layout";
+}
+<a class="addWorker" asp-action="Create" asp-controller="Practice">
+    <img src="~/img/plus.png" width="60" height="60" />
+</a>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th class="text-center">Индентификатор</th>
+                <th class="text-center">Наименование практики</th>
+                <th class="text-center">Адрес практики</th>
+                <th class="text-center">Наименование компании</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var practice in Model)
+            {
+                <tr>
+                    <th>
+                        <a asp-controller="Practice" asp-action="Edit" asp-route-id="@practice.Id" style="float:left;">Редактирование</a>
+                        @if (practice.Students?.Count == 0)
+                        {
+                            <span style="float:left;">|</span>
+                            <a asp-controller="Practice" asp-action="Delete" asp-route-id="@practice.Id" style="float:left;">Удалить</a>
+                        }
+                    </th>
+                    <th class="text-center">@practice.Id</th>
+                    <td class="text-center">@practice.Name</td>
+                    <td class="text-center">@practice.Address</td>
+                    <td class="text-center">@practice.PartnerCompany?.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

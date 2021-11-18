@@ -1,0 +1,64 @@
+﻿@model Student
+@{
+    Layout = "_Layout";
+}
+
+
+<div class="divForForm">
+    <div class="myForm">
+        <form asp-action="List" asp-controller="Student">
+            <button type="submit" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </form>
+
+        <form method="post" asp-controller="Student" asp-action="Edit">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="lastName">Фамилия*</label>
+                    <input asp-for="LastName" required type="text" class="form-control" id="lastName" placeholder="Фамилия" value="@Model?.LastName">
+                    @Html.ValidationMessageFor(model => model.LastName, null, new { style = "color:red" })
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="firstName">Имя*</label>
+                    <input asp-for="FirstName" required type="text" class="form-control" id="firstName" placeholder="Имя" value="@Model?.FirstName">
+                    @Html.ValidationMessageFor(model => model.FirstName, null, new { style = "color:red" })
+                </div>
+
+
+
+                <div class="form-group col-md-6">
+                    <label for="middleName">Отчество*</label>
+                    <input asp-for="MiddleName" required type="text" class="form-control" id="middleName" placeholder="Отчество" value="@Model?.MiddleName">
+                    @Html.ValidationMessageFor(model => model.MiddleName, null, new { style = "color:red" })
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="graduateWork">Тема дипломной работы</label>
+                    <input asp-for="GraduateWork" type="text" class="form-control" id="graduateWork" placeholder="Тема" value="@Model?.GraduateWork">
+                    @Html.ValidationMessageFor(model => model.GraduateWork, null, new { style = "color:red" })
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="accessRights">Группа*</label>
+                    <select id="accessRights" required class="form-control" asp-for="GroupId" asp-items="ViewBag.Groups" value="@Model?.GroupId"></select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="positions">Практика</label>
+                    <select id="positions" class="form-control" asp-for="PracticeId" asp-items="ViewBag.Practices" value="@Model?.PracticeId">
+                        <option></option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="qualifications">Руководитель практики</label>
+                    <select id="qualifications" class="form-control" asp-for="WorkerId" asp-items="ViewBag.Workers" value="@Model?.WorkerId">
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+
+    </div>
+</div>

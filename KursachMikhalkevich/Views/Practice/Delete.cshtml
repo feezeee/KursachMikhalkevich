@@ -1,0 +1,19 @@
+﻿@model Practice
+@{
+    Layout = "_Layout";
+}
+
+
+<div class="divForForm">
+    <div class="myForm">
+        <form method="post" asp-controller="Practice" asp-action="Delete" asp-route-id="@Model.Id">
+            <h3 class="text-center">Вы уверены?</h3>
+            <div class="d-flex justify-content-around p-3">
+                <button type="submit" class="btn btn-primary">Да</button>
+                <a type="button" class="btn btn-danger" asp-action="List" asp-controller="Practice">Нет</a>
+            </div>
+
+        </form>
+
+    </div>
+</div>

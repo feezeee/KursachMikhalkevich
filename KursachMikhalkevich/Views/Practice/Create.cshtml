@@ -1,0 +1,37 @@
+﻿@model Practice
+@{
+    Layout = "_Layout";
+}
+
+
+<div class="divForForm">    
+    <div class="myForm">
+        <form asp-action="List" asp-controller="Practice">
+            <button type="submit" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </form>
+        
+        <form method="post" asp-controller="Practice" asp-action="Create">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="Name">Название*</label>
+                    <input asp-for="Name" required type="text" class="form-control" id="Name" placeholder="Название" value="@Model?.Name">
+                    @Html.ValidationMessageFor(model => model.Name, null, new { style = "color:red" })
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="Name">Название*</label>
+                    <input asp-for="Address" required type="text" class="form-control" id="Name" placeholder="Адрес" value="@Model?.Address">
+                    @Html.ValidationMessageFor(model => model.Address, null, new { style = "color:red" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="qualifications">Компания*</label>
+                <select id="qualifications" required class="form-control" asp-for="PartnerCompanyId" asp-items="ViewBag.PartnerCompanies"></select>
+            </div>
+
+                <button type="submit" class="btn btn-primary">Добавить практику</button>
+        </form>
+
+    </div>
+</div>
