@@ -20,7 +20,10 @@ namespace KursachMikhalkevich.Models
         public int GroupId { get; set; }
         public Group Group { get; set; }
 
-        [Column("date")]
-        public DateTime DateTime { get; set; }
+        [Column("date_time_start")]
+        public DateTime DateTimeStart { get; set; }
+
+        [Column("date_time_end")]
+        public DateTime DateTimeEnd { get; set; }
     }
 }

@@ -23,6 +23,16 @@ namespace KursachMikhalkevich.Controllers
             return View(groups);
         }
 
+        public IActionResult Information(int? id)
+        {
+            Group group = _context.Groups.Where(t => t.Id == id).Include(t => t.SubjectsGroups).Include(t => t.Subjects).Include(t => t.Students).FirstOrDefault();
+            if (group == null)
+            {
+                return RedirectToAction("List");
+            }
+
+            return View(group);
+        }
 
         [HttpGet]
         public ViewResult Create()

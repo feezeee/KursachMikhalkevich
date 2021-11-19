@@ -18,7 +18,7 @@
                 <a asp-controller="Group" asp-action="Delete" asp-route-id="@group.Id" style="float:left;">Удалить</a>
             }
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <a asp-controller="Group" asp-action="Information">@group.Name (@group.Students?.Count)</a>
+            <a asp-controller="Group" asp-action="Information" asp-route-id="@group.Id">@group.Name (@group.Students?.Count)</a>
         </div>
     }
     

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<PartnerCompany>
+@{
+    Layout = "_Layout";
+}
+<a class="addWorker" asp-action="Create" asp-controller="PartnerCompany">
+    <img src="~/img/plus.png" width="60" height="60" />
+</a>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th class="text-center">Индентификатор</th>
+                <th class="text-center">Наименование</th>
+                <th class="text-center">Количество практик</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var partnerCompany in Model)
+            {
+                <tr>
+                    <th>
+                        <a asp-controller="PartnerCompany" asp-action="Edit" asp-route-id="@partnerCompany.Id" style="float:left;">Редактирование</a>
+                        @if(partnerCompany.Practices?.Count == 0)
+                        {
+                            <span style="float:left;">|</span>
+                            <a asp-controller="PartnerCompany" asp-action="Delete" asp-route-id="@partnerCompany.Id" style="float:left;">Удалить</a>
+                        }
+                    </th>
+                    <th class="text-center">@partnerCompany.Id</th>
+                    <td class="text-center">@partnerCompany.Name</td>
+                    <td class="text-center">@partnerCompany.Practices?.Count</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

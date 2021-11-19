@@ -1,0 +1,51 @@
+﻿@model Group
+@{
+    Layout = "_Layout";
+}
+
+
+<div class="divForForm">    
+    <div class="myForm">
+        <form asp-action="List" asp-controller="Group">
+            <button type="submit" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </form>
+
+        <div class="place_schedule overflow-auto _subjectgroupcolumn">
+            @for (int i = 0; i < 20; i++)
+                @foreach (var lesson in Model.SubjectsGroups.OrderBy(t => t.DateTimeStart).GroupBy(t => t.DateTimeStart.Date))
+                {
+                    <div class="_column">
+                        <p class="text-center">
+                            @lesson.Key.ToShortDateString()
+
+                        </p>
+                        <div class="_inf">
+                            @foreach (var el in lesson)
+                            {
+                                <div>
+                                    @*<button class="subject">*@
+                                    <span class="float-left">@el.DateTimeStart.ToShortTimeString() - @el.DateTimeEnd.ToShortTimeString() &nbsp &nbsp @el.Subject.Name</span>
+                                    &nbsp <span><a asp-controller="SubjectGroup" asp-action="Edit" asp-route-groupId="@Model.Id" asp-route-subjectId="@el.SubjectId">Изменить</a></span>
+                                    &nbsp <span><a asp-controller="SubjectGroup" asp-action="Delete" asp-route-groupId="@Model.Id" asp-route-subjectId="@el.SubjectId">Удалить</a></span>
+                                    @*</button>*@
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+
+
+        </div>
+        <div class="mt-3 overflow-auto _subjectgroupcolumn">
+            @*@for (int i = 0; i < 20; i++)*@
+                @foreach (var student in Model.Students)
+                {
+                    <div class="_column">
+                        <p>@student.FIO()</p>
+                    </div>
+                }
+        </div>
+    </div>
+</div>

@@ -36,7 +36,7 @@ insert into students (student_last_name, student_first_name, student_middle_name
 ("Иванов", "Иван", "Иванович", 1, 1);
 
 
-insert into schedules (date, class_id, subject_id) values
-("2021-11-12 09:00:00", 1, 1),
-("2021-11-11 09:00:00", 1, 2),
-("2021-11-9 09:00:00", 1, 3);
+insert into subjects_has_groups (date_time_start, date_time_end, group_id, subject_id) values
+("2021-11-12 09:00:00", "2021-11-12 10:00:00", 1, 1),
+("2021-11-11 09:00:00", "2021-11-11 10:00:00", 1, 2),
+("2021-11-9 09:00:00", "2021-11-9 10:00:00", 1, 3);
