@@ -41,7 +41,7 @@ namespace KursachMikhalkevich.Data
                     .HasForeignKey(pt => pt.GroupId),
                 j =>
                 {
-                    j.HasKey(t => new { t.GroupId, t.SubjectId });
+                    j.HasKey(t => new { t.Id });
                     j.ToTable("subjects_has_groups");
                 });
         }

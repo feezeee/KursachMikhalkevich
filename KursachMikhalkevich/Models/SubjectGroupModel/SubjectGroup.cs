@@ -10,6 +10,10 @@ namespace KursachMikhalkevich.Models
     [Table("subjects_has_groups")]
     public class SubjectGroup
     {
+        [Column("subjects_has_groupscol_id")]
+        [Required]
+        public int Id { get; set; }
+
         [Column("subject_id")]
         [Required]
         public int SubjectId { get; set; }

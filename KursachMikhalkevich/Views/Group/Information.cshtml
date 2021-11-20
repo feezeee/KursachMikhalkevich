@@ -25,11 +25,9 @@
                             @foreach (var el in lesson)
                             {
                                 <div>
-                                    @*<button class="subject">*@
                                     <span class="float-left">@el.DateTimeStart.ToShortTimeString() - @el.DateTimeEnd.ToShortTimeString() &nbsp &nbsp @el.Subject.Name</span>
                                     &nbsp <span><a asp-controller="SubjectGroup" asp-action="Edit" asp-route-groupId="@Model.Id" asp-route-subjectId="@el.SubjectId">Изменить</a></span>
-                                    &nbsp <span><a asp-controller="SubjectGroup" asp-action="Delete" asp-route-groupId="@Model.Id" asp-route-subjectId="@el.SubjectId">Удалить</a></span>
-                                    @*</button>*@
+                                    &nbsp <span><a asp-controller="SubjectGroup" asp-action="Delete" asp-route-groupId="@Model.Id" asp-route-subjectId="@el.SubjectId" asp-route-dateStart="@el.DateTimeStart">Удалить</a></span>
                                 </div>
                             }
                         </div>
