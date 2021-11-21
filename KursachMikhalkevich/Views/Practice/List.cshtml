@@ -2,9 +2,11 @@
 @{
     Layout = "_Layout";
 }
-<a class="addWorker" asp-action="Create" asp-controller="Practice">
+@if (User.IsInRole("Администратор"))
+{
+    <a class="addWorker" asp-action="Create" asp-controller="Practice">
     <img src="~/img/plus.png" width="60" height="60" />
-</a>
+</a>}
 <div class="table-responsive">
     <table class="table">
         <thead>
@@ -21,11 +23,14 @@
             {
                 <tr>
                     <th>
-                        <a asp-controller="Practice" asp-action="Edit" asp-route-id="@practice.Id" style="float:left;">Редактирование</a>
-                        @if (practice.Students?.Count == 0)
+                        @if (User.IsInRole("Администратор"))
                         {
-                            <span style="float:left;">|</span>
-                            <a asp-controller="Practice" asp-action="Delete" asp-route-id="@practice.Id" style="float:left;">Удалить</a>
+                            <a asp-controller="Practice" asp-action="Edit" asp-route-id="@practice.Id" style="float:left;">Редактирование</a>
+                            @if (practice.Students?.Count == 0)
+                            {
+                                <span style="float:left;">|</span>
+                                <a asp-controller="Practice" asp-action="Delete" asp-route-id="@practice.Id" style="float:left;">Удалить</a>
+                            }
                         }
                     </th>
                     <th class="text-center">@practice.Id</th>

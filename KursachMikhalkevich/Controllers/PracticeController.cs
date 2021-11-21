@@ -1,5 +1,6 @@
 ﻿using KursachMikhalkevich.Data;
 using KursachMikhalkevich.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace KursachMikhalkevich.Controllers
             _context = context;
         }
 
+        [Authorize]
         public ViewResult List()
         {
             var practices = _context.Practices.Include(t => t.Students).Include(t=>t.PartnerCompany).Select(t => t);
@@ -27,6 +29,7 @@ namespace KursachMikhalkevich.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Администратор")]
         public ViewResult Create()
         {
             Practice practice = new Practice();
@@ -35,6 +38,7 @@ namespace KursachMikhalkevich.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Администратор")]
         public async Task<IActionResult> Create(Practice practice)
         {
             if (ModelState.IsValid)
@@ -76,6 +80,7 @@ namespace KursachMikhalkevich.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Администратор")]
         public IActionResult Edit(int? id)
         {
             if (id == 0)
@@ -94,6 +99,7 @@ namespace KursachMikhalkevich.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Администратор")]
         public async Task<IActionResult> Edit(Practice practice)
         {
             if (ModelState.IsValid)
@@ -109,6 +115,7 @@ namespace KursachMikhalkevich.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Администратор")]
         public IActionResult Delete(int? id)
         {
             Practice practice = _context.Practices.Include(t => t.Students).Where(t => t.Id == id).FirstOrDefault();
@@ -125,6 +132,7 @@ namespace KursachMikhalkevich.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Администратор")]
         public IActionResult DeleteConfirmed(int? id)
         {
             Practice practice = _context.Practices.Include(t => t.Students).Where(t => t.Id == id).FirstOrDefault();

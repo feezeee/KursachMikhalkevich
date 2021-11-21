@@ -1,5 +1,6 @@
 ﻿using KursachMikhalkevich.Data;
 using KursachMikhalkevich.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,6 +18,7 @@ namespace KursachMikhalkevich.Controllers
             _context = context;
         }
 
+        [Authorize]
         public ViewResult List()
         {
             var positions = _context.Qualifications.Include(t => t.Workers).Select(t => t);
@@ -25,6 +27,7 @@ namespace KursachMikhalkevich.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Администратор")]
         public ViewResult Create()
         {
             Qualification qualification = new Qualification();
@@ -32,6 +35,7 @@ namespace KursachMikhalkevich.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Администратор")]
         public async Task<IActionResult> Create(Qualification qualification)
         {
             if (ModelState.IsValid)
@@ -72,6 +76,7 @@ namespace KursachMikhalkevich.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Администратор")]
         public IActionResult Edit(int? id)
         {
             if (id == 0)
@@ -89,6 +94,7 @@ namespace KursachMikhalkevich.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Администратор")]
         public async Task<IActionResult> Edit(Qualification qualification)
         {
             if (ModelState.IsValid)
@@ -109,6 +115,7 @@ namespace KursachMikhalkevich.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Администратор")]
         public IActionResult Delete(int? id)
         {
             Qualification qualification = _context.Qualifications.Find(id);
@@ -125,6 +132,7 @@ namespace KursachMikhalkevich.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Администратор")]
         public IActionResult DeleteConfirmed(int? id)
         {
             Qualification qualification = _context.Qualifications.Find(id);

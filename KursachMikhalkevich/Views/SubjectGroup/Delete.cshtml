@@ -1,4 +1,4 @@
-﻿@model Group
+﻿@model SubjectGroup
 @{
     Layout = "_Layout";
 }
@@ -6,11 +6,11 @@
 
 <div class="divForForm">
     <div class="myForm">
-        <form method="post" asp-controller="Group" asp-action="Delete" asp-route-id="@Model.Id">
+        <form method="post" asp-controller="SubjectGroup" asp-action="Delete" asp-route-groupId="@Model.GroupId" asp-route-id="@Model.Id">
             <h3 class="text-center">Вы уверены?</h3>
             <div class="d-flex justify-content-around p-3">
                 <button type="submit" class="btn btn-primary">Да</button>
-                <a type="button" class="btn btn-danger" asp-action="List" asp-controller="Group">Нет</a>
+                <a type="button" class="btn btn-danger" asp-action="Information" asp-controller="Group" asp-route-id="@Model.GroupId">Нет</a>
             </div>
 
         </form>

@@ -2,9 +2,12 @@
 @{ 
     Layout = "_Layout";
 }
-<a class="addWorker" asp-action="Create" asp-controller="Worker">
-    <img src="~/img/plus.png" width="60" height="60"/>
-</a>
+@if (User.IsInRole("Администратор"))
+{
+    <a class="addWorker" asp-action="Create" asp-controller="Worker">
+        <img src="~/img/plus.png" width="60" height="60"/>
+    </a>
+}
 <div class="table-responsive">
     <table class="table">
         <thead>
@@ -22,9 +25,12 @@
             {
                 <tr>
                     <th>
-                        <a asp-controller="Worker" asp-action="Edit" asp-route-id="@worker.Id" style="float:left;">Редактирование</a>
-                        <span style="float:left;">|</span>
-                        <a asp-controller="Worker" asp-action="Delete" asp-route-id="@worker.Id" style="float:left;">Удалить</a>
+                        @if (User.IsInRole("Администратор"))
+                        {
+                            <a asp-controller="Worker" asp-action="Edit" asp-route-id="@worker.Id" style="float:left;">Редактирование</a>
+                            <span style="float:left;">|</span>
+                            <a asp-controller="Worker" asp-action="Delete" asp-route-id="@worker.Id" style="float:left;">Удалить</a>
+                        }
                     </th>
                     <th class="text-center">@worker.Id</th>
                     <td class="text-center">@worker.FIO()</td>

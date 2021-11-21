@@ -1,5 +1,6 @@
 ﻿using KursachMikhalkevich.Data;
 using KursachMikhalkevich.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace KursachMikhalkevich.Controllers
             _context = context;
         }
 
+        [Authorize]
         public ViewResult List()
         {
             var students = _context.Students.Include(t => t.Practice).Include(t => t.Group).Include(t => t.Worker).Select(t => t);
@@ -27,6 +29,7 @@ namespace KursachMikhalkevich.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Администратор")]
         public ViewResult Create()
         {
             Student student = new Student();
@@ -45,6 +48,7 @@ namespace KursachMikhalkevich.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Администратор")]
         public async Task<IActionResult> Create(Student student)
         {
             if (ModelState.IsValid)
@@ -96,6 +100,7 @@ namespace KursachMikhalkevich.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Администратор")]
         public IActionResult Edit(int? id)
         {
             if (id == 0)
@@ -124,6 +129,7 @@ namespace KursachMikhalkevich.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Администратор")]
         public async Task<IActionResult> Edit(Student student)
         {
             if (ModelState.IsValid)
@@ -148,6 +154,7 @@ namespace KursachMikhalkevich.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Администратор")]
         public IActionResult Delete(int? id)
         {
             Student student = _context.Students.Include(t => t.Practice).Include(t => t.Group).Include(t => t.Worker).Where(t => t.Id == id).FirstOrDefault();
@@ -160,6 +167,7 @@ namespace KursachMikhalkevich.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Администратор")]
         public IActionResult DeleteConfirmed(int? id)
         {
             Student student = _context.Students.Include(t => t.Practice).Include(t => t.Group).Include(t => t.Worker).Where(t => t.Id == id).FirstOrDefault();

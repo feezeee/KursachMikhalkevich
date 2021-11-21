@@ -8,7 +8,7 @@ ul.cd-bouncy-nav {
 }
 /* open button position */
 .cd-section {
-    top: 1px;
+    top: 80px;
     right: 20px;
     position: fixed;
     z-index: 1;

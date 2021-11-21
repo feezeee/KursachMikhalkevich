@@ -29,12 +29,13 @@ namespace KursachMikhalkevich
             var conection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(conection));
 
-            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            //   .AddCookie(options =>
-            //   {
-            //       options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
-            //       options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
-            //   });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+               .AddCookie(options =>
+               {
+                   options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                   options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+               });
 
 
             services.AddControllersWithViews();
@@ -45,7 +46,6 @@ namespace KursachMikhalkevich
         {
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -59,6 +59,7 @@ namespace KursachMikhalkevich
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

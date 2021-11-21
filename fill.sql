@@ -2,7 +2,6 @@ use study_department;
 
 insert into access_rights (access_right_name) values
 ("Администратор"),
-("Сотрудник учебного отдела"),
 ("Преподаватель");
 
 
@@ -16,7 +15,7 @@ insert into qualifications (qualification_name) values
 ("Магистр технических наук");
 
 insert into workers (worker_last_name, worker_first_name, worker_middle_name, email, password, position_id, qualification_id, access_right_id) values
-("Ковалевский", "Артем", "Александрович", "kov@bmku.by", "1234", 1, 1, 1);
+("Ковалевский", "Артем", "Александрович", "kov1@bmku.by", "admin", 1, 1, 1);
 
 
 insert into subjects (subject_name, worker_id) values
@@ -31,12 +30,15 @@ insert into study_department.groups (group_name) values
 insert into partner_companies (company_name) values
 ("тест");
 
+insert into practices (partner_company_id, practic_address, practit_name) values
+(1, "23456", "1234");
 
 insert into students (student_last_name, student_first_name, student_middle_name, group_id, practic_id) values
 ("Иванов", "Иван", "Иванович", 1, 1);
 
 
 insert into subjects_has_groups (date_time_start, date_time_end, group_id, subject_id) values
+("2021-11-12 09:00:00", "2021-11-12 10:00:00", 1, 1),
 ("2021-11-12 09:00:00", "2021-11-12 10:00:00", 1, 1),
 ("2021-12-12 09:00:00", "2021-12-12 10:00:00", 1, 1),
 ("2021-11-11 09:00:00", "2021-11-11 10:00:00", 1, 2),

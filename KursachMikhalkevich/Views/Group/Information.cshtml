@@ -11,10 +11,17 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </form>
+        @if (User.IsInRole("Администратор"))
+        {
+            <a class="addSubjectGroup" asp-action="Create" asp-controller="SubjectGroup" asp-route-groupId="@Model.Id" title="Добавить расписание">
+                <img src="~/img/plus.png" width="30" height="30"/>
+            </a>
+        }
+
 
         <div class="place_schedule overflow-auto _subjectgroupcolumn">
-            @for (int i = 0; i < 20; i++)
-                @foreach (var lesson in Model.SubjectsGroups.OrderBy(t => t.DateTimeStart).GroupBy(t => t.DateTimeStart.Date))
+
+               @foreach (var lesson in Model.SubjectsGroups.OrderBy(t => t.DateTimeStart).GroupBy(t => t.DateTimeStart.Date))
                 {
                     <div class="_column">
                         <p class="text-center">
@@ -26,9 +33,12 @@
                             {
                                 <div>
                                     <span class="float-left">@el.DateTimeStart.ToShortTimeString() - @el.DateTimeEnd.ToShortTimeString() &nbsp &nbsp @el.Subject.Name</span>
-                                    &nbsp <span><a asp-controller="SubjectGroup" asp-action="Edit" asp-route-groupId="@Model.Id" asp-route-subjectId="@el.SubjectId">Изменить</a></span>
-                                    &nbsp <span><a asp-controller="SubjectGroup" asp-action="Delete" asp-route-groupId="@Model.Id" asp-route-subjectId="@el.SubjectId" asp-route-dateStart="@el.DateTimeStart">Удалить</a></span>
-                                </div>
+                                    @if (User.IsInRole("Администратор"))
+                                {
+                                    <pre>  </pre><span> <a asp-controller="SubjectGroup" asp-action = "Edit" asp-route-groupId = "@el.GroupId" asp-route-id = "@el.Id">Изменить </a></span>
+                                    <pre>  </pre><span> <a asp-controller="SubjectGroup" asp-action = "Delete" asp-route-groupId = "@el.GroupId" asp-route-id = "@el.Id">Удалить </a></span>
+                                }
+                            </div>
                             }
                         </div>
                     </div>
@@ -36,14 +46,14 @@
 
 
         </div>
-        <div class="mt-3 overflow-auto _subjectgroupcolumn">
-            @*@for (int i = 0; i < 20; i++)*@
+        <div class="mt-3 overflow-auto _subjectgroupcolumn">     
                 @foreach (var student in Model.Students)
                 {
                     <div class="_column">
                         <p>@student.FIO()</p>
                     </div>
                 }
+            
         </div>
     </div>
 </div>

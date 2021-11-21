@@ -2,9 +2,11 @@
 @{ 
     Layout = "_Layout";
 }
-<a class="addWorker" asp-action="Create" asp-controller="Student">
+@if (User.IsInRole("Администратор"))
+{
+    <a class="addWorker" asp-action="Create" asp-controller="Student">
     <img src="~/img/plus.png" width="60" height="60"/>
-</a>
+</a>}
 <div class="table-responsive">
     <table class="table">
         <thead>
@@ -21,12 +23,15 @@
         <tbody>
             @foreach (var student in Model)
             {
-            <tr>
-                <th>
-                    <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id" style="float:left;">Редактирование</a>
-                    <span style="float:left;">|</span>
-                    <a asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id" style="float:left;">Удалить</a>
-                </th>
+                <tr>
+                    <th>
+                        @if (User.IsInRole("Администратор"))
+                        {
+                            <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id" style="float:left;">Редактирование</a>
+                            <span style="float:left;">|</span>
+                            <a asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id" style="float:left;">Удалить</a>
+                        }
+                    </th>
                 <th class="text-center">@student.Id</th>
                 <td class="text-center">@student.FIO()</td>
                 <td class="text-center">@student.Group?.Name</td>

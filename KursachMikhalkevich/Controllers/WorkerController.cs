@@ -1,5 +1,6 @@
 ﻿using KursachMikhalkevich.Data;
 using KursachMikhalkevich.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace KursachMikhalkevich.Controllers
             _context = context;
         }
 
+        [Authorize]
         public ViewResult List()
         {
             var workers = _context.Workers.Include(t => t.Position).Include(t => t.Qualification).Include(t => t.AccessRight).Include(t=>t.Subjects).Select(t => t);
@@ -26,6 +28,7 @@ namespace KursachMikhalkevich.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Администратор")]
         public ViewResult Create()
         {
             ViewBag.Positions = new SelectList(_context.Positions, "Id", "Name");
@@ -37,6 +40,7 @@ namespace KursachMikhalkevich.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Администратор")]
         public async Task<IActionResult> Create(Worker worker)
         {
             if (ModelState.IsValid)
@@ -80,6 +84,7 @@ namespace KursachMikhalkevich.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Администратор")]
         public IActionResult Edit(int? id)
         {
             if (id == 0)
@@ -100,6 +105,7 @@ namespace KursachMikhalkevich.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Администратор")]
         public async Task<IActionResult> Edit(Worker worker)
         {
             if (ModelState.IsValid)
@@ -124,6 +130,7 @@ namespace KursachMikhalkevich.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Администратор")]
         public IActionResult Delete(int? id)
         {
             Worker worker = _context.Workers.Find(id);
@@ -140,6 +147,7 @@ namespace KursachMikhalkevich.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Администратор")]
         public IActionResult DeleteConfirmed(int? id)
         {
             Worker worker = _context.Workers.Find(id);

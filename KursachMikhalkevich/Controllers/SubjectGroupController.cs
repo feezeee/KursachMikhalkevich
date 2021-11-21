@@ -1,6 +1,8 @@
 ﻿using KursachMikhalkevich.Data;
 using KursachMikhalkevich.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,12 +19,14 @@ namespace KursachMikhalkevich.Controllers
             _context = context;
         }
 
+        [Authorize]
         public ViewResult List()
         {
             var groups = _context.Groups.Include(t => t.Subjects).Include(t => t.Students).Select(t => t);
             return View(groups);
         }
 
+        [Authorize]
         public IActionResult Information(int? id)
         {
             Group group = _context.Groups.Where(t => t.Id == id).Include(t => t.SubjectsGroups).Include(t => t.Subjects).Include(t => t.Students).FirstOrDefault();
@@ -35,23 +39,27 @@ namespace KursachMikhalkevich.Controllers
         }
 
         [HttpGet]
-        public ViewResult Create()
+        [Authorize(Roles = "Администратор")]
+        public ViewResult Create(int groupId)
         {
-            Group group = new Group();
-            return View(group);
+            SubjectGroup subjectGroup = new SubjectGroup();
+            subjectGroup.GroupId = groupId;
+            ViewBag.Subjects = new SelectList(_context.Subjects, "Id", "Name");
+            return View(subjectGroup);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Group group)
+        [Authorize(Roles = "Администратор")]
+        public async Task<IActionResult> Create(SubjectGroup subjectGroup)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(group);
+                _context.Add(subjectGroup);
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction("List");
+                return RedirectToAction("Information", "Group", new { id = subjectGroup.GroupId });
             }
-            return View(group);
+            return View(subjectGroup);
         }
 
         public IActionResult CheckName(int? Id, string? Name)
@@ -82,63 +90,68 @@ namespace KursachMikhalkevich.Controllers
 
 
         [HttpGet]
-        public IActionResult Edit(int? id)
+        [Authorize(Roles = "Администратор")]
+        public IActionResult Edit(int? id, int? groupId)
         {
-            if (id == 0)
+            if (id == 0 || id == null)
             {
-                return RedirectToAction("List");
+                return RedirectToAction("Information", "Group", new { id = groupId });
             }
-            Group group = _context.Groups.Include(t => t.Subjects).Include(t => t.Students).Where(t => t.Id == id).Select(t => t).FirstOrDefault();
+            var subjectGroup = _context.SubjectGroups.Where(t => t.Id == id).FirstOrDefault();
+            if (subjectGroup != null)
+            {
 
-            if (group != null)
-            {
-                return View(group);
+                ViewBag.Subjects = new SelectList(_context.Subjects, "Id", "Name");
+                return View(subjectGroup);
             }
-            return RedirectToAction("List");
+
+            return RedirectToAction("Information", "Group", new { id = groupId });
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Group group)
+        [Authorize(Roles = "Администратор")]
+        public async Task<IActionResult> Edit(SubjectGroup subjectGroup)
         {
             if (ModelState.IsValid)
             {
 
-                _context.Entry(group).State = EntityState.Modified;
+                _context.Entry(subjectGroup).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
-                return RedirectToAction("List");
+                return RedirectToAction("Information", "Group", new { id = subjectGroup.GroupId });
             }
-            return View(group);
+            ViewBag.Subjects = _context.Subjects;
+            return View(subjectGroup);
         }
 
 
 
         [HttpGet]
-        public IActionResult Delete(int? id)
+        [Authorize(Roles = "Администратор")]
+        public IActionResult Delete(int? id, int? groupId)
         {
-            
+
             var subjectGroup = _context.SubjectGroups.Where(t => t.Id == id).FirstOrDefault();
-            if (subjectGroup != null)
+            if (subjectGroup == null)
             {
-                var studentCourse = group.SubjectsGroups.Where(t=>t.DateTimeStart == dateStart).FirstOrDefault(sc => sc.SubjectId == subject.Id);
-                group.SubjectsGroups.Remove(studentCourse);
-                _context.SaveChanges();
+                return RedirectToAction("Information","Group", new {id = groupId});
             }
 
-            return RedirectToAction("Information","Group", new { id = groupId});
+            return View(subjectGroup);
         }
 
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int? groupId, int? subjectId)
+        [Authorize(Roles = "Администратор")]
+        public IActionResult DeleteConfirmed(int? id, int? groupId)
         {
-            Group group = _context.Groups.Include(t => t.Subjects).Include(t => t.Students).Where(t => t.Id == id).FirstOrDefault();
-            if (group == null)
+            var subjectGroup = _context.SubjectGroups.Where(t => t.Id == id).FirstOrDefault();
+            if (subjectGroup == null)
             {
-                return RedirectToAction("List");
+                return RedirectToAction("Information", "Group", new { id = groupId });
             }
 
-            _context.Groups.Remove(group);
+            _context.SubjectGroups.Remove(subjectGroup);
             _context.SaveChanges();
-            return RedirectToAction("List");
+            return RedirectToAction("Information", "Group", new { id = groupId });
         }
     }
 }

@@ -16,6 +16,11 @@
         <a asp-controller="Home" asp-action="Index">
             Добро пожаловать @AuthorizedUser.GetUser()?.FIO()
         </a>
+        <form method="post" asp-controller="Account" asp-action="Logout">
+                <button class="btn btn-light">
+                    Выход
+                </button>
+        </form>
     </header>
     <section class="cd-section">
         <button class="cd-bouncy-nav-trigger" href="#0">

@@ -1,0 +1,44 @@
+﻿/*Login*/
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background: #ccc;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    width: 100%;
+    height: 100%; 
+    padding: 0; 
+    margin: 0; 
+    background: rgb(255,255,255); 
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(191,231,244,1) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.myForm {
+    width: 500px;
+    height: 600px;
+    background: rgb(19,15,41);
+    background: radial-gradient(circle, rgba(19,15,41,1) 0%, rgba(13,38,102,1) 100%);
+    border-radius: 20px;
+    box-shadow: 0 0 5px;
+    display: flex;
+    flex-direction: column;
+}
+.myimg{
+    height: 200px;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}
+img {
+    border-radius: 20px;
+    width: 150px;
+    height: 150px;
+
+}
