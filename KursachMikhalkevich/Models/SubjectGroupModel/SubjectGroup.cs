@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace KursachMikhalkevich.Models
 {
-    [Table("subjects_has_groups")]
+    [Table("timetables")]
     public class SubjectGroup
     {
-        [Column("subjects_has_groupscol_id")]
+        [Column("timetable_id")]
         [Required]
         public int Id { get; set; }
 

@@ -35,8 +35,8 @@
                                     <span class="float-left">@el.DateTimeStart.ToShortTimeString() - @el.DateTimeEnd.ToShortTimeString() &nbsp &nbsp @el.Subject.Name</span>
                                     @if (User.IsInRole("Администратор"))
                                 {
-                                    <pre>  </pre><span> <a asp-controller="SubjectGroup" asp-action = "Edit" asp-route-groupId = "@el.GroupId" asp-route-id = "@el.Id">Изменить </a></span>
-                                    <pre>  </pre><span> <a asp-controller="SubjectGroup" asp-action = "Delete" asp-route-groupId = "@el.GroupId" asp-route-id = "@el.Id">Удалить </a></span>
+                                    <span class="ml-1"> <a asp-controller="SubjectGroup" asp-action = "Edit" asp-route-groupId = "@el.GroupId" asp-route-id = "@el.Id">Изменить </a></span>
+                                    <span class="ml-1"> <a asp-controller="SubjectGroup" asp-action = "Delete" asp-route-groupId = "@el.GroupId" asp-route-id = "@el.Id">Удалить </a></span>
                                 }
                             </div>
                             }

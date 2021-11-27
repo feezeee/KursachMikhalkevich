@@ -42,7 +42,7 @@ namespace KursachMikhalkevich.Data
                 j =>
                 {
                     j.HasKey(t => new { t.Id });
-                    j.ToTable("subjects_has_groups");
+                    j.ToTable("timetables");
                 });
         }
     }

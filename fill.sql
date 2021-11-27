@@ -37,7 +37,7 @@ insert into students (student_last_name, student_first_name, student_middle_name
 ("Иванов", "Иван", "Иванович", 1, 1);
 
 
-insert into subjects_has_groups (date_time_start, date_time_end, group_id, subject_id) values
+insert into timetables (date_time_start, date_time_end, group_id, subject_id) values
 ("2021-11-12 09:00:00", "2021-11-12 10:00:00", 1, 1),
 ("2021-11-12 09:00:00", "2021-11-12 10:00:00", 1, 1),
 ("2021-12-12 09:00:00", "2021-12-12 10:00:00", 1, 1),
