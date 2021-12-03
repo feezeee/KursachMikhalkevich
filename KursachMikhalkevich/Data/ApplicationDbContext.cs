@@ -24,6 +24,7 @@ namespace KursachMikhalkevich.Data
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Worker> Workers { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder

@@ -28,8 +28,12 @@
                         @if (User.IsInRole("Администратор"))
                         {
                             <a asp-controller="Worker" asp-action="Edit" asp-route-id="@worker.Id" style="float:left;">Редактирование</a>
-                            <span style="float:left;">|</span>
-                            <a asp-controller="Worker" asp-action="Delete" asp-route-id="@worker.Id" style="float:left;">Удалить</a>
+                            
+                            @if(AuthorizedUser.GetUser().Id != worker.Id)
+                            {   
+                                <span style="float:left;">|</span>
+                                <a asp-controller="Worker" asp-action="Delete" asp-route-id="@worker.Id" style="float:left;">Удалить</a>
+                            }
                         }
                     </th>
                     <th class="text-center">@worker.Id</th>
